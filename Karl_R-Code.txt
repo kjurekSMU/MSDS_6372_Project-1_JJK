@@ -1,0 +1,17 @@
+- projection_df = read.csv("projectionData.csv", header=T, stringsAsFactors=F)
+- modeling_df = read.csv("modelingData.csv", header=T, stringsAsFactors=F)
+
+- modeling_df=transform(modeling_df, timestamp=as.Date(timestamp, origin = "1899-12-30"))
+- projection_df=transform(projection_df, timestamp=as.Date(timestamp, origin = "1899-12-30"))
+
+- distinct_sub_areas=modeling_df %>% distinct(sub_area)
+- distinct_product_type=modeling_df %>% distinct(product_type)
+- distinct_ecology=modeling_df %>% distinct(ecology)
+
+- small_model=modeling_df[1:10,]
+- small_project=project_df[1:10,]
+
+- View(modeling_df)
+- View(projection_df)
+- View(small_model)
+- View(small_projection)

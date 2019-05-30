@@ -1,0 +1,62 @@
+1. life_sq:  5333 NAs
+2. floor: 146 NAs
+	a. if no floor than a single family home?
+3. max_floor: 7991 NAs
+4. material: 7991 NAs
+5. build_year: 
+	a. 11392 - NAs
+	b. 430 - 0s
+	c. 298 - 1s
+	d. 1 - 3s
+	e. 1 - 20s
+	f. 1 - 215
+	g. 1 - 20052009
+	h. 1 - 4965
+		1) Might be 1965 / fat finger?
+6. num_rooms:
+	a. 7991 NAs
+	b. 1 - 17
+	c. 1 - 19
+7. kitchen_sq
+	a. 7991 NAs
+	b. 1152 - 0s
+	c. 4060 - 1s
+	d. 12 - 2s
+	e. 37 - 3s
+	f. 68 - 4s
+	g. 2013 - seems to correspond with the build_year
+	h. 2014 - seems to correspond with the build_year
+	i. 1974 - year updated?
+	j. 1970 - ?
+	k. 620 - square area?
+8. state
+	a. 11333 NAs
+	b. 33 - 1
+		1) Should this be a 3 / fat finger?
+	c. 1 = good or 1 = bad
+9. preschool quota
+	a. 5604 - NAs
+10. school_quota
+	a.  5602 - NAs
+11. hospital beds
+	a. 12096 - NAs
+12. raion_build_count_with_material_info
+	a. 4195 - NAs
+13. All the build_count_xxx
+	a. 4195 - NAs
+14. school_km
+	a. 39 - 0s
+15. metro_min_auto / metro_km_auto / metro_min_walk / metro_km_walk
+	a. 1 - 0s
+16. green_zone_km
+	a. 596 - 0s
+17. industrial_km
+	a. 563 - 0s
+18. cemetery_km
+	a. 8 - 0s
+19. railroad_station_walk_km
+	a. 19 - NAs
+20. railroad_station_walk_min
+	a. 19 - NAs
+21. ID_railroad_station_walk
+	a. 19 - NAs
