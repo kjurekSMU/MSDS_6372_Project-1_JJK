@@ -1,0 +1,62 @@
+---
+title: "Price Data Analysis"
+author: "Pankaj Kumar , Karl Jurek, Shawn Jung"
+date: "5/31/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+```
+
+## Price Data Analysis
+
+```{r}
+
+
+price_modeling_data = read_csv('Data/modelingData.csv' ,
+                         col_types = cols(.default = 'i'  ))
+
+p = ggplot(data = price_modeling_data, aes(  y = price_doc))
+
+# below should be used with geom_point
+lm_smooth_line=stat_smooth(method = "lm", aes(  y = price_doc), col = "red")
+
+
+p+geom_point(mapping = aes( x= life_sq)) +
+   stat_smooth(method = "lm", aes( x= life_sq), col = "red")
+
+  
+# num_room looks like a categorical variable with around 15 values
+p+geom_point(mapping = aes( x = num_room))
+
+p+geom_bar(mapping = aes( x = num_room), stat = "identity") + 
+  coord_flip()
+
+
+# kitchen_sq
+p+geom_point(mapping = aes( x= kitch_sq))+
+     stat_smooth(method = "lm", aes( x= kitch_sq), col = "red")
+
+
+p+geom_bar(mapping = aes( x = floor), stat = "identity") 
+
+p+geom_bar(mapping = aes( x = max_floor), stat = "identity") 
+
+p+geom_bar(mapping = aes( x = build_year), stat = "identity") 
+
+p+geom_bar(mapping = aes( x = sub_area), stat = "identity") 
+
+
+p+geom_bar(mapping = aes( x = build_year), stat = "identity") 
+
+print(p+geom_bar(mapping = aes( x = radiation_raion), stat = "identity") )
+
+
+   
+
+```
+
+
