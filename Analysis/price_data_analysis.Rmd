@@ -45,6 +45,9 @@ p+geom_bar(mapping = aes( x = floor), stat = "identity")
 
 p+geom_bar(mapping = aes( x = max_floor), stat = "identity") 
 
+p+geom_point(mapping = aes( x = build_year)) 
+
+
 p+geom_bar(mapping = aes( x = build_year), stat = "identity") 
 
 p+geom_bar(mapping = aes( x = sub_area), stat = "identity") 
