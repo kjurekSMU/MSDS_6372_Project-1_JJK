@@ -4,8 +4,22 @@ library(broom)
 
 sas_directory = '/Users/pankaj/dev/sas/SASUniversityEdition/myfolders/stats2_hw'
 
-price_modeling_data = read_csv('Analysis/Data/modelingData.csv' ,
-                         col_types = cols(.default = 'i'  ))
+price_modeling_data = read.csv('Analysis/Data/modelingData.csv' )
+
+
+### count vars that are all none or  no none
+
+na_count <-sapply(price_modeling_data, function(y) sum(length(which(is.na(y)))))
+
+na_count_frame= stack(na_count)
+all_na= filter(na_count_frame, na_count==25471)
+no_na = filter(na_count_frame, na_count==0)
+
+ggplot(data = filter(na_count_frame , values >24000))+
+  geom_bar(mapping = aes(y= values, x=ind), stat='identity')+
+  xlab('variable name')+
+  ylab('number of NAs')+
+  coord_flip();
 
 
 p = ggplot(data = price_modeling_data )
@@ -31,16 +45,7 @@ p+geom_bar(mapping = aes( x = radiation_raion), stat = "identity")
 p+geom_point(mapping = aes( x= kitch_sq))
 summarise(price_modeling_data$radiation_raion)
 
-### count vars that are all none or  no none
-na_count <-sapply(price_modeling_data, function(y) sum(length(which(is.na(y)))))
-na_count_frame= stack(na_count)
-all_na= filter(na_count_frame, na_count==25471)
-no_na = filter(na_count_frame, na_count==0)
-view(no_na)
-
-hist(na_count_frame$values)
-
-pr_model = lm(price_doc ~ full_sq+work_all + as.factor(sub_area), price_modeling_data)
+pr_model = lm(price_doc ~ full_sq+work_all  , price_modeling_data)
 cookd=cooks.distance(pr_model)
 summary(pr_model)
 
