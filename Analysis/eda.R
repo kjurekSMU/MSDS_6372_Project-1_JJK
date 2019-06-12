@@ -4,7 +4,8 @@ library(broom)
 
 sas_directory = '/Users/pankaj/dev/sas/SASUniversityEdition/myfolders/stats2_hw'
 
-price_modeling_data = read.csv('Analysis/Data/modelingData.csv' )
+price_modeling_data = read.csv('Analysis/Data/modelingData.csv' , header=T, stringsAsFactors=F)
+
 
 
 ### count vars that are all none or  no none
@@ -14,6 +15,17 @@ na_count <-sapply(price_modeling_data, function(y) sum(length(which(is.na(y)))))
 na_count_frame= stack(na_count)
 all_na= filter(na_count_frame, na_count==25471)
 no_na = filter(na_count_frame, na_count==0)
+
+##### check all factoers 
+
+factors =  sapply(price_modeling_data, function(x) class (x)=="character")
+factor_stack= stack(factors)
+cat_vars= filter(factor_stack, values == TRUE) %>% select(ind)
+cat_var_names= as.character(cat_vars$ind)
+
+ggplot(data = price_modeling_data)+
+  geom_bar(mapping = aes(x= product_type))+
+  geom_text('23')
 
 ggplot(data = filter(na_count_frame , values >24000))+
   geom_bar(mapping = aes(y= values, x=ind), stat='identity')+

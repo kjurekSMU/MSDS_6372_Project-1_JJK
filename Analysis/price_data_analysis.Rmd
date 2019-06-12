@@ -13,6 +13,8 @@ library(tidyverse)
 library(stats)
 library(broom)
 price_modeling_data = read.csv('Data/modelingData.csv' )
+p = ggplot(data = price_modeling_data, aes(  y = price_doc))
+
 ```
 
 ## Introduction
@@ -53,44 +55,39 @@ price_modeling_data = read.csv('Data/modelingData.csv' )
 
 
 ## Data Cleaning / Wrangling
-   ** Initial import of the the modelingData.csv and predictionData.csv required stringsAsFactors=F 
+   * Initial import of the the modelingData.csv and predictionData.csv required stringsAsFactors=F 
+   
+   * Converting Time Stamp from integer based to date format (yyyy-mm-dd)
    
    
-   ** Converting Time Stamp from integer based to date format (yyyy-mm-dd)
+   * modeling_df=transform(modeling_df, timestamp=as.Date(timestamp, origin = "1899-12-30"))
    
    
-   ** modeling_df=transform(modeling_df, timestamp=as.Date(timestamp, origin = "1899-12-30"))
-   
-   
-   ** projection_df=transform(projection_df, timestamp=as.Date(timestamp, origin = "1899-12-30"))
+   * projection_df=transform(projection_df, timestamp=as.Date(timestamp, origin = "1899-12-30"))
 
 
 ### Build_year - 
-   ** 14965 transformed to 1965
+   * 14965 transformed to 1965
    
    
-   ** 1691 transformed to 1991
+   * 1691 transformed to 1991
    
    
-   ** 20052009 transformed to 2007
+   * 20052009 transformed to 2007
 
 
 ### Kitch_sq
-   ** 2013 deleted due to being the same as the build_year
+   * 2013 deleted due to being the same as the build_year
    
+   * 2014 deleted due to being the same as the build_year
    
-   ** 2014 deleted due to being the same as the build_year
+   * 1974 deleted due to being the same as the build_year
    
-   
-   ** 1974 deleted due to being the same as the build_year
-   
-   
-   ** 1970 deleted due to being larger than the entire square footage of the building
+   * 1970 deleted due to being larger than the entire square footage of the building
 
 
 ### State
    33 transformed to 3
-
 
 Removed all apostrophe / single quotes from sub_area
 
@@ -98,9 +95,7 @@ Removed all apostrophe / single quotes from sub_area
 There are 
 Deleted 7991 rows where the max_floor, material, build_year, num_room, kitch_sq, and state all had a value of NA.
 
-
 Deleted 1791 rows where the life_sq, build_year, and state all had a value of NA.
-
 
 Deleted 1038 rows where the life_sq and build_year had a value of NA.
 Deleted 261 rows where the life_sq and state had a value of NA.
@@ -111,6 +106,8 @@ Deleted 232 rows where the build_year and state had a value of NA.
 ## EDA  
 
 ### Univariate Analysis 
+
+#### Number of NA's 
 
 ```{r echo = FALSE}
 
@@ -124,14 +121,44 @@ ggplot(data = filter(na_count_frame , values >10000))+
   xlab('variable name')+
   ylab('number of NAs')+
   coord_flip();
+
+
 ```
+
+##### list of all categorical variables 
+
+```{r ECHO= F}
+##### check all factoers 
+
+factors =  sapply(price_modeling_data, function(x) class (x)=="factor")
+factor_stack= stack(factors)
+categorical_vars = filter(factor_stack, values == TRUE) %>% select(ind)
+categorical_vars
+```
+
+
+#### Bar plots 
+
+```{r Echo = F}
+## we need to pass x values directly from list of categorical we got earlier 
+
+ggplot(data= price_modeling_data)+ geom_bar(mapping = aes(x= product_type))
+ggplot(data= price_modeling_data)+ geom_bar(mapping = aes(x= state))
+ggplot(data= price_modeling_data) + geom_bar(mapping = aes(x= sub_area))+coord_flip()
+
+
+```
+
+#### Bax plots 
+
+ggplot(data= price_modeling_data)+ geom_boxplot(mapping = aes( y= school_km))
+
 
 ### Bivariate Analysis 
 
 
 ```{r echo =F}
 
-p = ggplot(data = price_modeling_data, aes(  y = price_doc))
 # below should be used with geom_point
 lm_smooth_line=stat_smooth(method = "lm", aes(  y = price_doc), col = "red")
 p+geom_point(mapping = aes( x= life_sq)) +
@@ -178,6 +205,7 @@ Full_sq - 5326
 
 
 ```{r echo = F}
+
   pr_model = lm(price_doc ~ full_sq+work_all  , price_modeling_data)
 cookd=cooks.distance(pr_model)
 summary(pr_model)
@@ -194,6 +222,7 @@ ggplot(df, aes(x = .fitted, y = .resid)) + geom_point()
 
 
 ## Modeling
+
       OLS
       LASSO
       
