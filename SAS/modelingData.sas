@@ -1,5 +1,8 @@
 
 /* Backward selection. */
+
+
+
 proc glmselect data=housing.merged_data;
 class  life_sq floor max_floor material build_year num_room 
 	kitch_sq state product_type sub_area area_m raion_popul green_zone_part 

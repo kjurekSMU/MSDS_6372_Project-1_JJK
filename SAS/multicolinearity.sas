@@ -1,7 +1,4 @@
 
- 
-
-
 proc corr data= housing.clean_modeling;
 var full_sq life_sq floor max_floor material build_year num_room 
 	kitch_sq state   area_m raion_popul green_zone_part 

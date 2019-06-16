@@ -1,7 +1,7 @@
 %web_drop_table(housing.modeling);
 
 
-FILENAME REFFILE '/folders/myfolders/stats2_hw/term_proj1/data/modellingData1.csv';
+FILENAME REFFILE '/folders/myfolders/stats2_hw/term_proj1/data/modelingData1.csv';
 
 PROC IMPORT DATAFILE=REFFILE
 	DBMS=CSV

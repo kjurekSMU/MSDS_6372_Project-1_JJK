@@ -1,6 +1,6 @@
 /* MODELING DATA CLEANING */
-data WORK.CLEAN_MODELING ;
-	set WORK.MODELING;
+data housing.CLEAN_MODELING ;
+	set housing.MODELING;
 	region=compress(sub_area,"'");
 	if full_sq = 5326 then delete;
 	if full_sq >200 then delete;
@@ -110,9 +110,10 @@ run;
 /* proc print data=WORK.CLEAN_MODELING (obs=10); run; */
 
 /* PROJECTION DATA CLEANING */
-data WORK.CLEAN_PROJECTION ;
-	set WORK.PROJECTION;
+data housing.CLEAN_PROJECTION ;
+	set housing.PROJECTION;
 	region=compress(sub_area,"'");
+	idd = input(VAR1, 8.);
 	if full_sq = 5326 then delete;
 	if full_sq >200 then delete;
 	if full_sq <2 then full_sq = 54.3;
@@ -222,7 +223,7 @@ run;
 /* proc print data=WORK.CLEAN_PROJECTION (obs=10); run; */
 
 /* MERGED MODELING AND PROJECTION CLEAN DATA */
-data WORK.MERGED_DATA;
-set WORK.CLEAN_MODELING WORK.CLEAN_PROJECTION;
+data housing.MERGED_DATA;
+set housing.CLEAN_MODELING housing.CLEAN_PROJECTION;
 
 /* proc print data=WORK.MERGED_DATA (obs=10); run; */
